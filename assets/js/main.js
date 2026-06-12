@@ -173,6 +173,57 @@ $("ach-grid").innerHTML = ACHIEVEMENTS.map(
   </div>`
 ).join("");
 
+/* ---------- blog / writeups ---------- */
+const fmtDate = (iso) => {
+  const d = new Date(iso);
+  return isNaN(d) ? iso : d.toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+};
+
+$("blog-grid").innerHTML = BLOGS.map(
+  (b, i) => `<button class="blog-card reveal tilt" data-idx="${i}">
+    <div class="blog-meta">
+      <span class="blog-date">▸ ${esc(fmtDate(b.date))}</span>
+      ${b.readTime ? `<span class="blog-read">${esc(b.readTime)}</span>` : ""}
+    </div>
+    <h3 class="blog-title">${esc(b.title)}</h3>
+    <p class="blog-summary">${esc(b.summary)}</p>
+    <div class="p-tags">${(b.tags || []).map((t) => `<span>${esc(t)}</span>`).join("")}</div>
+    <span class="blog-open">${b.link ? "read on the web ↗" : "read_post ↗"}</span>
+  </button>`
+).join("");
+
+/* render a block-based writeup body into safe HTML */
+function renderBlocks(blocks) {
+  return (blocks || []).map((blk) => {
+    switch (blk.type) {
+      case "h": return `<h4 class="m-h">${esc(blk.text)}</h4>`;
+      case "list": return `<ul>${(blk.items || []).map((it) => `<li>${esc(it)}</li>`).join("")}</ul>`;
+      case "code": return `<pre class="m-code">${esc(blk.text)}</pre>`;
+      case "quote": return `<p class="m-outcome">${esc(blk.text)}</p>`;
+      case "p":
+      default: return `<p>${esc(blk.text)}</p>`;
+    }
+  }).join("");
+}
+
+function openBlog(b) {
+  if (b.link) { window.open(b.link, "_blank", "noopener"); return; }
+  $("modal-path").textContent =
+    "~/blog/" + b.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") + ".md";
+  $("modal-body").innerHTML = `
+    <h3>${esc(b.title)}</h3>
+    <p class="blog-meta-line">${esc(fmtDate(b.date))}${b.readTime ? " · " + esc(b.readTime) : ""}</p>
+    <div class="p-tags">${(b.tags || []).map((t) => `<span>${esc(t)}</span>`).join("")}</div>
+    <div class="blog-article">${renderBlocks(b.content)}</div>`;
+  overlay.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+
+$("blog-grid").addEventListener("click", (e) => {
+  const card = e.target.closest(".blog-card");
+  if (card) openBlog(BLOGS[card.dataset.idx]);
+});
+
 /* ---------- skills ---------- */
 $("skills-grid").innerHTML = SKILLS.map(
   (g) => `<div class="skill-group reveal">
@@ -230,6 +281,7 @@ $("contact-actions").innerHTML = [
       print("  whoami      — who is this guy?");
       print("  skills      — list security domains & tools");
       print("  projects    — list project directory");
+      print("  blog        — list writeups");
       print("  certs       — list certifications");
       print("  contact     — how to reach me");
       print("  clear       — wipe the screen");
@@ -248,6 +300,11 @@ $("contact-actions").innerHTML = [
       print("~/projects/", "c-cyan");
       PROJECTS.forEach((p) => print("  drwxr-x---  " + p.title));
       print("(click the project cards above for full case studies)", "c-ok");
+    },
+    blog: () => {
+      print("~/blog/", "c-cyan");
+      BLOGS.forEach((b) => print("  -rw-r--r--  " + b.title + "  (" + b.date + ")"));
+      print("(click the cards in the blog section above to read)", "c-ok");
     },
     certs: () => CERTIFICATIONS.forEach((c) => print("  🏅 " + c.name + " — " + c.issuer)),
     contact: () => {

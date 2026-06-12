@@ -304,6 +304,76 @@ const ACHIEVEMENTS = [
   },
 ];
 
+/* ============================================================
+   BLOG / WRITEUPS — your technical posts.
+   Two ways to use each entry:
+     A) EXTERNAL  → set "link" to a Medium/Dev.to/personal URL.
+                    The card opens that link in a new tab. Omit "content".
+     B) INLINE    → fill "content" with blocks and the post opens in an
+                    on-site reader. Leave "link" as "".
+
+   content blocks (use as many as you like, in any order):
+     { type: "h",     text: "A section heading" }
+     { type: "p",     text: "A paragraph of body text." }
+     { type: "list",  items: ["first point", "second point"] }
+     { type: "code",  text: "single or\nmulti-line code / commands" }
+     { type: "quote", text: "A highlighted callout or key takeaway." }
+   ============================================================ */
+const BLOGS = [
+  {
+    title: "Threat Hunting with Trellix FireEye HX: A Practical Workflow",
+    date: "2026-05-20",
+    readTime: "7 min read",
+    summary:
+      "A repeatable hunting loop built on HX and HXTool — from hypothesis to bulk acquisition to validated detection.",
+    tags: ["Threat Hunting", "Trellix HX", "DFIR", "EDR"],
+    link: "", // inline post (uses content below)
+    content: [
+      { type: "p", text: "Good threat hunting isn't about staring at alerts — it's about forming a hypothesis, gathering the evidence to test it, and turning what you find into a durable detection. Here's the loop I run on Trellix FireEye HX." },
+      { type: "h", text: "1. Start with a hypothesis, not a tool" },
+      { type: "p", text: "Pick a specific, falsifiable idea grounded in an ATT&CK technique. For example: 'An adversary is using a scheduled task for persistence on our finance endpoints.' A hypothesis tells you exactly what data to pull and what 'found' looks like." },
+      { type: "h", text: "2. Scope and acquire with HXTool" },
+      { type: "p", text: "HXTool's bulk acquisition is where HX earns its keep. Rather than pivoting host-by-host in the console, define an acquisition script that collects the artifacts your hypothesis needs across a host set." },
+      { type: "list", items: [
+        "Persistence hunt → scheduled tasks, run keys, services, WMI subscriptions.",
+        "Execution hunt → process tree, parent/child anomalies, command-line arguments.",
+        "Collect from a representative sample first, then widen once the query is tuned.",
+      ] },
+      { type: "h", text: "3. Analyze for the anomaly, not the known-bad" },
+      { type: "p", text: "Signatures catch known-bad; hunting catches the unusual. Stack the results and look for outliers — the one host where a scheduled task launches PowerShell from a user-writable path, the parent process that should never spawn a shell." },
+      { type: "quote", text: "If everything looks normal, your hypothesis was wrong — that's a result, not a failure. Refine and re-run." },
+      { type: "h", text: "4. Close the loop: turn findings into detections" },
+      { type: "p", text: "A hunt that ends in a Slack message is wasted work. Every confirmed pattern should become an IOC test, an enterprise search, or a detection rule so the next occurrence pages the SOC automatically." },
+      { type: "code", text: "# pseudo-workflow\nhypothesis  -> scope hosts\n           -> HXTool bulk acquisition\n           -> stack & analyze artifacts\n           -> confirm / refute\n           -> codify as detection (IOC / rule)" },
+      { type: "p", text: "Replace this post with your own writeups — edit the BLOGS array in data.js." },
+    ],
+  },
+  {
+    title: "Building an Incident Handler's Journal That Actually Helps",
+    date: "2026-04-08",
+    readTime: "5 min read",
+    summary:
+      "The lightweight documentation habit that makes your next investigation faster — structured around the NIST IR lifecycle.",
+    tags: ["Incident Response", "Documentation", "NIST"],
+    link: "",
+    content: [
+      { type: "p", text: "Every responder is told to 'document everything,' and most journals die after two entries because they're a chore. The trick is a structure light enough to fill in during an incident but complete enough to learn from afterward." },
+      { type: "h", text: "Anchor each entry to the IR lifecycle" },
+      { type: "list", items: [
+        "Detection — what fired, the source, and the initial indicator.",
+        "Triage — severity call and the reasoning behind it.",
+        "Containment — actions taken, with timestamps.",
+        "Eradication & Recovery — how the threat was removed and service restored.",
+        "Lessons learned — the one change that would have caught it sooner.",
+      ] },
+      { type: "h", text: "Timestamp everything" },
+      { type: "p", text: "A timeline is the single most valuable artifact you produce. When the post-incident review asks 'how long from detection to containment?', a timestamped journal answers in seconds." },
+      { type: "quote", text: "The lessons-learned line is the whole point. If you can't name one improvement, the investigation isn't finished." },
+      { type: "p", text: "Swap this for your real journals and writeups by editing data.js — keep them sanitized and client-safe." },
+    ],
+  },
+];
+
 /* Grouped skills — add new items to any list */
 const SKILLS = [
   {

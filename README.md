@@ -49,6 +49,37 @@ Everything on the site comes from **`data.js`**. You never touch the HTML.
 },
 ```
 
+**New blog post / writeup** → copy a block in `BLOGS`. Two options:
+
+```js
+// A) link to an external post (Medium, Dev.to, etc.)
+{
+  title: "My Writeup",
+  date: "2026-06-01",
+  readTime: "6 min read",
+  summary: "One-line teaser shown on the card.",
+  tags: ["DFIR"],
+  link: "https://medium.com/@you/my-writeup",   // card opens this
+},
+
+// B) write the post inline — it opens in an on-site reader
+{
+  title: "My Writeup",
+  date: "2026-06-01",
+  readTime: "6 min read",
+  summary: "One-line teaser.",
+  tags: ["DFIR"],
+  link: "",                       // leave empty for inline
+  content: [
+    { type: "h",     text: "Heading" },
+    { type: "p",     text: "A paragraph." },
+    { type: "list",  items: ["point one", "point two"] },
+    { type: "code",  text: "some --commands\nor code" },
+    { type: "quote", text: "A highlighted takeaway." },
+  ],
+},
+```
+
 **New certification** → add to `CERTIFICATIONS`:
 
 ```js
