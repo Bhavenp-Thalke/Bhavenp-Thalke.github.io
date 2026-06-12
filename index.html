@@ -5,20 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bhaven Thalke — Cyber Security Professional</title>
   <meta name="description" content="Portfolio of Bhaven Thalke — Incident Responder, Cyber Security Analyst, and SOC/EDR specialist." />
+  <meta property="og:title" content="Bhaven Thalke — Cyber Security Professional" />
+  <meta property="og:description" content="Incident Response · EDR · Threat Hunting · SOC Operations. Explore my projects, achievements, and research." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://bhavenp-thalke.github.io/" />
+  <meta name="theme-color" content="#060a10" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🛡️</text></svg>" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%23060a10'/><text x='14' y='68' font-family='monospace' font-size='52' fill='%2300ff9c'>&gt;_</text></svg>" />
 </head>
 <body>
+  <!-- boot sequence overlay -->
+  <div id="boot" aria-hidden="true">
+    <div id="boot-log"></div>
+    <p class="boot-skip">[ click anywhere to skip ]</p>
+  </div>
+
+  <div id="scroll-progress" aria-hidden="true"></div>
   <canvas id="matrix-bg" aria-hidden="true"></canvas>
   <div class="scanlines" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
 
   <!-- ============ NAV ============ -->
   <header class="nav">
     <div class="nav-inner">
-      <a href="#home" class="nav-logo">&gt;_ <span id="nav-name">bhaven@sec</span><span class="cursor-block">█</span></a>
+      <a href="#home" class="nav-logo">&gt;_ <span>bhaven@sec</span><span class="cursor-block">█</span></a>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
       </button>
@@ -26,6 +39,7 @@
         <a href="#about">./about</a>
         <a href="#experience">./experience</a>
         <a href="#projects">./projects</a>
+        <a href="#achievements">./wins</a>
         <a href="#skills">./skills</a>
         <a href="#certs">./certs</a>
         <a href="#contact">./contact</a>
@@ -36,13 +50,18 @@
   <main>
     <!-- ============ HERO ============ -->
     <section id="home" class="hero">
+      <div class="hero-glow" aria-hidden="true"></div>
       <div class="container">
-        <p class="hero-pre">// initializing secure session...</p>
+        <p class="hero-pre">// initializing secure session<span class="dots"></span></p>
         <h1 class="glitch" id="hero-name" data-text=""></h1>
-        <div class="hero-terminal">
+        <div class="status-pill" id="status-pill" hidden>
+          <span class="pulse-dot"></span><span id="status-text"></span>
+        </div>
+        <div class="hero-terminal tilt">
           <div class="term-bar">
             <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
             <span class="term-title">bhaven@portfolio: ~</span>
+            <span class="term-secure">🔒 TLS 1.3</span>
           </div>
           <div class="term-body">
             <p><span class="prompt">$</span> whoami</p>
@@ -53,7 +72,7 @@
         </div>
         <div class="hero-actions">
           <a href="#projects" class="btn btn-primary">[ view_projects ]</a>
-          <a href="#contact" class="btn btn-ghost">[ contact_me ]</a>
+          <a href="#contact" class="btn btn-ghost">[ open_channel ]</a>
         </div>
         <div class="stats" id="stats"></div>
       </div>
@@ -65,7 +84,7 @@
         <h2 class="section-title"><span class="sec-num">01.</span> about<span class="accent">_me</span></h2>
         <div class="about-grid">
           <div class="about-text" id="about-text"></div>
-          <aside class="about-card">
+          <aside class="about-card tilt">
             <h3>// quick_facts</h3>
             <ul id="about-facts"></ul>
             <h3>// education</h3>
@@ -87,15 +106,24 @@
     <section id="projects" class="section">
       <div class="container">
         <h2 class="section-title"><span class="sec-num">03.</span> projects<span class="accent">/</span></h2>
-        <p class="section-sub">// deployments, labs &amp; hands-on security work</p>
+        <p class="section-sub">// click any card for the full case study</p>
         <div class="projects-grid" id="projects-grid"></div>
+      </div>
+    </section>
+
+    <!-- ============ ACHIEVEMENTS ============ -->
+    <section id="achievements" class="section">
+      <div class="container">
+        <h2 class="section-title"><span class="sec-num">04.</span> achievements<span class="accent">_unlocked</span></h2>
+        <p class="section-sub">// milestones from the field</p>
+        <div class="ach-grid" id="ach-grid"></div>
       </div>
     </section>
 
     <!-- ============ SKILLS ============ -->
     <section id="skills" class="section">
       <div class="container">
-        <h2 class="section-title"><span class="sec-num">04.</span> skill<span class="accent">_matrix</span></h2>
+        <h2 class="section-title"><span class="sec-num">05.</span> skill<span class="accent">_matrix</span></h2>
         <div class="skills-grid" id="skills-grid"></div>
       </div>
     </section>
@@ -103,7 +131,7 @@
     <!-- ============ CERTS & PUBLICATIONS ============ -->
     <section id="certs" class="section">
       <div class="container">
-        <h2 class="section-title"><span class="sec-num">05.</span> certs <span class="accent">&amp;</span> research</h2>
+        <h2 class="section-title"><span class="sec-num">06.</span> certs <span class="accent">&amp;</span> research</h2>
         <div class="certs-grid" id="certs-grid"></div>
         <div class="pubs" id="pubs"></div>
       </div>
@@ -112,15 +140,41 @@
     <!-- ============ CONTACT ============ -->
     <section id="contact" class="section">
       <div class="container">
-        <h2 class="section-title"><span class="sec-num">06.</span> open<span class="accent">_channel</span></h2>
-        <div class="contact-card">
-          <p class="contact-line"><span class="prompt">$</span> echo "Interested in working together, or just want to talk security?"</p>
-          <p class="contact-line out">Let's connect — my inbox is always open.</p>
-          <div class="contact-actions" id="contact-actions"></div>
+        <h2 class="section-title"><span class="sec-num">07.</span> open<span class="accent">_channel</span></h2>
+        <p class="section-sub">// reach out — or play with the live console below</p>
+        <div class="contact-grid">
+          <div class="contact-card">
+            <p class="contact-line"><span class="prompt">$</span> echo "Interested in working together, or just want to talk security?"</p>
+            <p class="contact-line out">Let's connect — my inbox is always open.</p>
+            <div class="contact-actions" id="contact-actions"></div>
+          </div>
+          <div class="hero-terminal console" id="console">
+            <div class="term-bar">
+              <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+              <span class="term-title">guest@bhaven-portfolio: ~</span>
+            </div>
+            <div class="term-body console-body" id="console-out"></div>
+            <div class="console-input-row">
+              <span class="prompt">guest@portfolio:~$</span>
+              <input id="console-in" type="text" autocomplete="off" spellcheck="false" aria-label="terminal input" placeholder="type 'help'" />
+            </div>
+          </div>
         </div>
       </div>
     </section>
   </main>
+
+  <!-- ============ PROJECT MODAL ============ -->
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal hero-terminal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="term-bar">
+        <span class="term-dot red"></span><span class="term-dot yellow"></span><span class="term-dot green"></span>
+        <span class="term-title" id="modal-path">~/projects/case-study</span>
+        <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
 
   <footer class="footer">
     <p>&gt;_ designed &amp; maintained by <span class="accent" id="footer-name"></span> · <span id="year"></span></p>

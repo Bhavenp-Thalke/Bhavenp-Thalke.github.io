@@ -23,9 +23,29 @@ Everything on the site comes from **`data.js`**. You never touch the HTML.
 ```js
 {
   title: "My New Project",
-  description: "What I built and why it matters.",
+  description: "Short text shown on the card.",
   tags: ["SIEM", "Detection"],
   link: "https://github.com/you/repo",   // or "" if no link
+  details: {                             // powers the click-to-open case study
+    overview: "What the project was.",   // (remove `details` entirely for a
+    highlights: [                        //  simple card with no popup)
+      "What I did, step 1.",
+      "What I did, step 2.",
+    ],
+    outcome: "The result / impact.",
+    tools: ["Tool A", "Tool B"],
+  },
+},
+```
+
+**New achievement** → copy a block in `ACHIEVEMENTS`:
+
+```js
+{
+  icon: "🏆",
+  title: "Won XYZ CTF",
+  detail: "One or two lines about what you achieved.",
+  context: "Where / who for",
 },
 ```
 
