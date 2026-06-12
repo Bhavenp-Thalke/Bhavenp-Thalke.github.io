@@ -1,0 +1,4 @@
+# keep personal docs out of the public repo
+Resume.docx
+*.docx
+*.pdf

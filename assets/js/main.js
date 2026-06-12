@@ -1,5 +1,12 @@
 /* Renders all sections from data.js — no content lives in this file. */
 
+/* Clickjacking guard: refuse to be embedded in a frame on another origin.
+   (Backs up the CSP frame-ancestors directive, which browsers ignore when
+   CSP is delivered via a <meta> tag — the only option on a static host.) */
+if (window.top !== window.self) {
+  try { window.top.location = window.self.location; } catch (e) { document.documentElement.style.display = "none"; }
+}
+
 const $ = (id) => document.getElementById(id);
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) =>
