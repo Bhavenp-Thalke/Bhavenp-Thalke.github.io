@@ -21,7 +21,7 @@ const PROFILE = {
   location: "Mumbai, India",
   email: "bhaventhalke.work@gmail.com",
   linkedin: "https://www.linkedin.com/in/bhaven-thalke/",
-  github: "https://github.com/", // ← put your GitHub profile URL here
+  github: "https://github.com/Bhavenp-Thalke",
   about: [
     "I'm a cyber security professional with hands-on experience leading end-to-end incident response — threat detection, triage, containment, eradication, recovery, and post-incident analysis — across enterprise environments.",
     "I've investigated and responded to security incidents using SIEM, EDR/XDR, SOAR, threat intelligence, email security, vulnerability management, and cloud security platforms. I specialize in endpoint security with Trellix FireEye HX, and have led deployments of Google SecOps Chronicle and Siemplify SOAR with scalable telemetry pipelines.",
