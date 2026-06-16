@@ -374,6 +374,31 @@ const BLOGS = [
   },
 ];
 
+/* ============================================================
+   BADGES — visual badge wall (Hack The Box, TryHackMe, etc.).
+   Each badge shows its image and links to the verification page.
+
+   TO ADD A BADGE:
+     1. Save the badge image into  assets/img/badges/  (give it a
+        short, clear filename, e.g. htb-web-requests.png).
+        Tip: open the badge page, then use the image it displays —
+        for HTB Academy it's at .../storage/badges/<name>.png
+     2. Copy a block below and edit it.
+
+   image:  path to the local image (keeps the strict CSP intact —
+           do NOT hotlink remote images, they're blocked by design).
+   link:   the public badge/verification URL ("" hides the verify link).
+   ============================================================ */
+const BADGES = [
+  {
+    name: "Your Request Is My Demand",
+    issuer: "Hack The Box Academy",
+    detail: "Completed the Web Requests module — HTTP requests and how web apps use them to talk to their backends.",
+    image: "assets/img/badges/htb-web-requests.png",
+    link: "https://academy.hackthebox.com/achievement/badge/2d3531e2-6982-11f1-82d1-bea50ffe6cb4",
+  },
+];
+
 /* Grouped skills — add new items to any list */
 const SKILLS = [
   {

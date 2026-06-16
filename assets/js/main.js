@@ -254,6 +254,18 @@ $("pubs").innerHTML = PUBLICATIONS.map(
   </div>`
 ).join("");
 
+/* ---------- badges ---------- */
+$("badges-grid").innerHTML = BADGES.map((b) => {
+  const inner = `<img class="badge-img" src="${esc(b.image)}" alt="${esc(b.name)} badge" loading="lazy" />
+    <h3 class="badge-name">${esc(b.name)}</h3>
+    <span class="badge-issuer">${esc(b.issuer)}</span>
+    ${b.detail ? `<p class="badge-detail">${esc(b.detail)}</p>` : ""}
+    ${b.link ? `<span class="badge-verify">verify ↗</span>` : ""}`;
+  return b.link
+    ? `<a class="badge-card reveal tilt" href="${esc(b.link)}" target="_blank" rel="noopener">${inner}</a>`
+    : `<div class="badge-card reveal tilt">${inner}</div>`;
+}).join("");
+
 /* ---------- contact ---------- */
 $("contact-actions").innerHTML = [
   `<a class="btn btn-primary" href="mailto:${esc(PROFILE.email)}">[ send_email ]</a>`,
