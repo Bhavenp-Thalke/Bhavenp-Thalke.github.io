@@ -610,25 +610,78 @@ body {
 .footer-sub { margin-top: 6px; font-size: 0.72rem; opacity: 0.7; }
 
 /* ================= RESPONSIVE ================= */
-@media (max-width: 880px) {
+
+/* Tablet / small laptop: collapse the (9-link) nav into a hamburger and
+   stack the two-column layouts. */
+@media (max-width: 960px) {
   .about-grid, .contact-grid { grid-template-columns: 1fr; }
-}
-@media (max-width: 680px) {
+
   .nav-toggle { display: block; }
   .nav-links {
     position: absolute; top: 100%; left: 0; right: 0;
     flex-direction: column; gap: 0;
-    background: rgba(6, 10, 16, 0.97);
+    background: rgba(6, 10, 16, 0.98);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
-    max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+    max-height: 0; overflow-y: auto; transition: max-height 0.35s ease;
+    -webkit-overflow-scrolling: touch;
   }
-  .nav-links.open { max-height: 400px; }
-  .nav-links a { padding: 14px 24px; border-top: 1px solid var(--border); }
-  .section { padding: 64px 0; }
-  .hero { padding-top: 100px; }
-  .contact-card { padding: 24px; }
-  .modal-body { padding: 20px; }
+  .nav-links.open { max-height: min(80vh, 560px); } /* fits all links + scrolls if needed */
+  .nav-links a {
+    padding: 15px 24px; border-top: 1px solid var(--border); font-size: 0.92rem;
+  }
+  /* turn the hamburger into an X when open */
+  .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+}
+
+/* Phones: tighter spacing, right-sized type, single-column grids. */
+@media (max-width: 600px) {
+  .container { padding: 0 16px; }
+  .nav-inner { padding: 13px 16px; }
+  .section { padding: 56px 0; }
+
+  .hero { padding: 88px 0 48px; min-height: auto; }
+  .hero-actions { gap: 12px; }
+  .hero-actions .btn { flex: 1 1 auto; text-align: center; } /* full-width buttons */
   .term-secure { display: none; }
+  .term-body { padding: 16px; font-size: 0.85rem; }
+  .term-role { font-size: 1.05rem; }
+
+  /* 2x2 stat grid instead of one tall column */
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 34px; }
+  .stat { padding: 14px 10px; }
+  .stat .num { font-size: 1.45rem; }
+
+  /* let cards use the full width cleanly */
+  .projects-grid, .blog-grid, .ach-grid,
+  .skills-grid, .certs-grid {
+    grid-template-columns: 1fr;
+  }
+  /* keep badges as a 2-up wall — looks better than one giant badge */
+  .badges-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .badge-card { padding: 20px 12px; }
+  .badge-img { width: 92px; height: 92px; margin-bottom: 12px; }
+  .badge-name { font-size: 0.9rem; }
+  .badge-detail { font-size: 0.8rem; }
+
+  .timeline { padding-left: 22px; }
+  .t-item::before { left: -22px; }
+
+  .contact-card { padding: 22px; }
+  .console-body { height: 220px; }
+  .modal-overlay { padding: 12px; }
+  .modal-body { padding: 18px; }
+  .modal { max-height: 90vh; }
+  .section-title::after { display: none; } /* avoid cramped trailing rule */
+  .footer { padding: 26px 16px; }
+}
+
+/* Very small phones: drop badges to a single column too. */
+@media (max-width: 360px) {
+  .badges-grid { grid-template-columns: 1fr; }
+  .badge-img { width: 110px; height: 110px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

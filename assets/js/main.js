@@ -362,10 +362,15 @@ $("contact-actions").innerHTML = [
 })();
 
 /* ---------- mobile nav ---------- */
-$("nav-toggle").addEventListener("click", () => $("nav-links").classList.toggle("open"));
-$("nav-links").addEventListener("click", (e) => {
-  if (e.target.tagName === "A") $("nav-links").classList.remove("open");
-});
+const navToggle = $("nav-toggle");
+const navLinksEl = $("nav-links");
+const setNav = (open) => {
+  navLinksEl.classList.toggle("open", open);
+  navToggle.classList.toggle("open", open);
+  navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+};
+navToggle.addEventListener("click", () => setNav(!navLinksEl.classList.contains("open")));
+navLinksEl.addEventListener("click", (e) => { if (e.target.tagName === "A") setNav(false); });
 
 /* ---------- active nav link on scroll ---------- */
 const navLinks = [...document.querySelectorAll(".nav-links a")];
